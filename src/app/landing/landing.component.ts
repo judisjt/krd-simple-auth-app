@@ -13,6 +13,15 @@ export class LandingComponent implements OnInit, OnDestroy {
   private sub: any;
   urlParams: any;
 
+  // Session params
+  tokenUri: string;
+  clientId: string;
+  secret: string;
+  serviceUri: string;
+  redirectUri: string;
+  data: any;
+  options: any;
+
   constructor(private route: ActivatedRoute) { }
 
   ngOnInit() {
@@ -20,8 +29,37 @@ export class LandingComponent implements OnInit, OnDestroy {
       this.urlParams = params;
     });
 
+    // Get URL parameters from auth server
     this.state = this.getUrlParameter('state');
     this.code = this.getUrlParameter('code');
+
+    // Load app parameters stored in session
+    const params = JSON.parse(sessionStorage[this.state]);
+    this.tokenUri = params.tokenUri;
+    this.clientId = params.clientId;
+    this.secret = params.secret;
+    this.serviceUri = params.serviceUri;
+    this.redirectUri = params.redirectUri;
+
+    // Prep the token exchange call parameters
+    this.data = {
+      code: this.code,
+      grant_type: 'authorization_code',
+      redirect_uri: this.redirectUri
+    };
+    if (!this.secret) {
+      this.data['client_id'] = this.clientId;
+    }
+    this.options = {
+      url: this.tokenUri,
+      type: 'POST',
+      data: this.data
+    };
+    if (this.secret) {
+      this.options['headers'] = {
+        'Authorization': 'Basic ' + btoa(this.clientId + ':' + this.secret)
+      };
+    }
   }
 
   private getUrlParameter(sParam: string): string {

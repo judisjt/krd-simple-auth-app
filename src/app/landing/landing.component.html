@@ -19,12 +19,16 @@
   </tr>
   <tr>
     <td>secret</td>
-    <td>{{secret}}</td>
+    <td>{{typeSecret}}</td>
   </tr>
   <tr>
     <td>serviceUri</td>
     <td>{{serviceUri}}</td>
   </tr>
+  <td>Redirect Uri</td>
+  <td>{{redirectUri}}</td>
+  <td><button (click)="postRequest()">Push me</button></td>
   </tbody>
 </table>
+<textarea>{{htmlreq}}</textarea>
 <p>End of landing</p>

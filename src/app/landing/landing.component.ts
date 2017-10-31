@@ -1,6 +1,8 @@
 import {Component, OnDestroy, OnInit} from '@angular/core';
 import {ActivatedRoute} from '@angular/router';
 import {isUndefined} from 'util';
+import {Http, Response, Headers, RequestOptions} from '@angular/http';
+import 'rxjs/add/operator/map';
 
 @Component({
   selector: 'app-landing',
@@ -16,13 +18,15 @@ export class LandingComponent implements OnInit, OnDestroy {
   // Session params
   tokenUri: string;
   clientId: string;
-  secret: string;
+  secret: any;
   serviceUri: string;
   redirectUri: string;
   data: any;
   options: any;
+  postResponseJson: any;
+  typeSecret: any;
 
-  constructor(private route: ActivatedRoute) { }
+  constructor(private route: ActivatedRoute, private _http: Http) { }
 
   ngOnInit() {
     this.sub = this.route.queryParams.subscribe(params => {
@@ -43,23 +47,32 @@ export class LandingComponent implements OnInit, OnDestroy {
 
     // Prep the token exchange call parameters
     this.data = {
-      code: this.code,
       grant_type: 'authorization_code',
-      redirect_uri: this.redirectUri
+      code: this.code,
+      redirect_uri: this.redirectUri,
+      client_id: this.clientId
     };
-    if (!this.secret) {
+   /* if (!this.secret) {
       this.data['client_id'] = this.clientId;
-    }
+    }*/
+    this.typeSecret = typeof this.secret;
+    console.log(this.secret);
     this.options = {
       url: this.tokenUri,
       type: 'POST',
       data: this.data
     };
-    if (this.secret) {
+    /*if (this.secret) {
       this.options['headers'] = {
         'Authorization': 'Basic ' + btoa(this.clientId + ':' + this.secret)
       };
-    }
+    }*/
+  }
+  postRequest() {
+    const body = `grant_type=authorization_code&code=XM13wz&redirect_uri=http://localhost:4200/afterlaunch&client_id=fc2c76f6-fe32-45d6-bfb2-d531dbb6fc68`;
+    return this._http.post(this.tokenUri, body)
+      .map((postResponse: Response) => postResponse.json())
+      .subscribe(httpPostResponse => this.postResponseJson = httpPostResponse);
   }
 
   private getUrlParameter(sParam: string): string {

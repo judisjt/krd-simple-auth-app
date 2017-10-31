@@ -4,6 +4,7 @@ import { NgModule } from '@angular/core';
 import { AppComponent } from './app.component';
 import { LandingComponent } from './landing/landing.component';
 import {RouterModule, Routes} from '@angular/router';
+import {HttpModule} from '@angular/http';
 
 const appRoutes: Routes = [
   {path: 'afterlaunch', component: LandingComponent},
@@ -16,6 +17,7 @@ const appRoutes: Routes = [
   ],
   imports: [
     BrowserModule,
+    HttpModule,
     RouterModule.forRoot(
       appRoutes,
       {enableTracing: true}

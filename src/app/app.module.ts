@@ -4,20 +4,24 @@ import { NgModule } from '@angular/core';
 import { AppComponent } from './app.component';
 import { LandingComponent } from './landing/landing.component';
 import {RouterModule, Routes} from '@angular/router';
-import {HttpModule} from '@angular/http';
+import {HttpClientModule} from '@angular/common/http';
+import { EpicAuthenticationComponent } from './epic-authentication/epic-authentication.component';
 
 const appRoutes: Routes = [
   {path: 'afterlaunch', component: LandingComponent},
+  {path: 'authentication', component: EpicAuthenticationComponent},
+  { path: '', redirectTo: '/authentication', pathMatch: 'full'}
 ];
 
 @NgModule({
   declarations: [
     AppComponent,
-    LandingComponent
+    LandingComponent,
+    EpicAuthenticationComponent
   ],
   imports: [
     BrowserModule,
-    HttpModule,
+    HttpClientModule,
     RouterModule.forRoot(
       appRoutes,
       {enableTracing: true}

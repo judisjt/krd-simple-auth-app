@@ -1,34 +1,19 @@
 <h1>In Landing Component:</h1>
-<table>
-  <tbody>
-  <tr>
-    <td>state</td>
-    <td>{{state}}</td>
-  </tr>
-  <tr>
-    <td>code</td>
-    <td>{{code}}</td>
-  </tr>
-  <tr>
-    <td>tokenUri</td>
-    <td>{{tokenUri}}</td>
-  </tr>
-  <tr>
-    <td>clientId</td>
-    <td>{{clientId}}</td>
-  </tr>
-  <tr>
-    <td>secret</td>
-    <td>{{typeSecret}}</td>
-  </tr>
-  <tr>
-    <td>serviceUri</td>
-    <td>{{serviceUri}}</td>
-  </tr>
-  <td>Redirect Uri</td>
-  <td>{{redirectUri}}</td>
-  <td><button (click)="postRequest()">Push me</button></td>
-  </tbody>
-</table>
-<textarea>{{htmlreq}}</textarea>
-<p>End of landing</p>
+
+<button (click)="getPatientName()">Get Patient Name</button>
+<!--<button (click)="getPatientGeneralInformation()">Get General Information</button>
+<button (click)="getSmokingStatus()">Get smoking status</button>
+<button (click)="getConditions()" >Get Conditions</button>
+<button (click)="getImmunizations()">Get Immunizations</button>
+<button (click)="getMedicationOrder()">Get Medication Order</button>
+<button (click)="getWeight()">Get Weight</button>-->
+<p>{{ptName}}</p>
+<!--<p>{{patientGeneral}}</p>
+<p>{{patientSmoking}}</p>
+<p>{{patientConditions}}</p>
+<p>{{patientImmunizations}}</p>
+<p>{{patientMedicationOrder}}</p>
+<p>{{patientWeight}}</p>-->
+<!--<p>Address: {{patientAddress}}</p>-->
+
+<p>End of landing Component</p>

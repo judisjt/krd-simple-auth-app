@@ -1,3 +1,5 @@
+
+
 // Change this to the ID of the client that you registered with the SMART on FHIR authorization server.
 //  var clientId = "16cbfe7c-6c56-4876-944f-534f9306bf8b";
 var clientId = "fc2c76f6-fe32-45d6-bfb2-d531dbb6fc68";
@@ -9,7 +11,8 @@ var clientId = "fc2c76f6-fe32-45d6-bfb2-d531dbb6fc68";
 var secret = null;    // set me, if confidential
 
 // These parameters will be received at launch time in the URL
-var serviceUri = getUrlParameter("iss");
+var serviceUri = encodeURIComponent('https://launch.smarthealthit.org/v/r2/sim/eyJrIjoiMSIsImoiOiIxIn0/fhir');
+// var serviceUri = getUrlParameter("iss");
 var launchContextId = getUrlParameter("launch");
 
 // The scopes that the app will request from the authorization server
@@ -61,7 +64,7 @@ $.get(conformanceUri, function(r){
     tokenUri: tokenUri
   });
 
-  // finally, redirect the browser to the authorizatin server and pass the needed
+  // finally, redirect the browser to the authorization server and pass the needed
   // parameters for the authorization request in the URL
   window.location.href = authUri + "?" +
     "response_type=code&" +
